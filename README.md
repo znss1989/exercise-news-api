@@ -1,8 +1,6 @@
-# Channel Newss APIs
+# MM News APIs
 
-## Backend APIs
-
-Endpoints:
+## RESTful endpoints
 
 `/api/channel`
 - `GET`: Get a list of all channels, return as JSON
