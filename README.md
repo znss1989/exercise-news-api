@@ -16,8 +16,8 @@ Manage articles of a channel
 
 ## Schemas
 
-- Channels: `id`, `name`
-- Articles: `id`, `channel`, `url`, `wc`
+- Channels: `id`, `title`
+- Articles: `id`, `channel_id`, `url`, `wc`
 
 ## Usage
 
