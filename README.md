@@ -32,7 +32,7 @@ sqlite3 news.db < setup.sql
 ## Progress
 
 - [x] Set up database
-- [ ] Lauch server
+- [x] Lauch server
 - [ ] Add endpoints for channel
 - [ ] Integrate UI for APIs
 - [ ] Add endpoints for articles
