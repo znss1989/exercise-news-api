@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -25,4 +26,20 @@ func addChannel(c *gin.Context) {
 		fmt.Println(err.Error())
 	}
 	c.JSON(http.StatusOK, id)
+}
+
+func addArticle(c *gin.Context) {
+	channelID, err := strconv.ParseInt(c.Param("id"), 10, 64)
+	if err != nil {
+		return
+	}
+	var atc Article
+	if err := c.BindJSON(&atc); err != nil {
+		return
+	}
+	id, err := insertArticle(channelID, atc)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+	c.JSON(http.StatusAccepted, id)
 }

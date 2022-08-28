@@ -11,18 +11,6 @@ import (
 
 var db *sql.DB
 
-type Channel struct {
-	ID    int64  `json:"id"`
-	Title string `json:"title"`
-}
-
-// type article struct {
-// 	ID        int64 `json:"id"`
-// 	ChannelID string `json:"channelID"`
-// 	Url       string `json:"url"`
-// 	WordCount int    `json:"wordCount"`
-// }
-
 func main() {
 	// database set up
 	var err error
@@ -35,7 +23,7 @@ func main() {
 	if pingErr != nil {
 		log.Fatal(pingErr)
 	}
-	fmt.Println("##### SQLite Connected! #####")
+	fmt.Println("========= SQLite Connected! =========")
 
 	defer db.Close()
 
@@ -43,6 +31,7 @@ func main() {
 	router := gin.Default()
 	router.GET("/channel", getChannels)
 	router.POST("/channel", addChannel)
+	router.POST("/channel/:id", addArticle)
 
 	router.Run("localhost:8080")
 }

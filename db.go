@@ -35,3 +35,18 @@ func insertChannel(chn Channel) (int64, error) {
 	}
 	return id, nil
 }
+
+func insertArticle(channelID int64, atc Article) (int64, error) {
+	result, err := db.Exec(
+		"INSERT INTO articles (channel_id, url, wc) VALUES (?, ?, ?)",
+		channelID, atc.Url, 0)
+	if err != nil {
+		return 0, fmt.Errorf("insertArticle: %v", err)
+	}
+	id, err := result.LastInsertId()
+	if err != nil {
+		return 0, fmt.Errorf("insertArticle: %v", err)
+	}
+	// TODO: invoke processing
+	return id, nil
+}
