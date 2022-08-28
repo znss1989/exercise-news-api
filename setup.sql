@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS channels;
 
 CREATE TABLE channels(
     id INT AUTO_INCREMENT NOT NULL,
-    channel_name VARCHAR(100) NOT NULL,
+    title VARCHAR(100) NOT NULL,
     PRIMARY KEY(id)
 );
 
