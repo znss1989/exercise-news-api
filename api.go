@@ -12,6 +12,7 @@ func getChannels(c *gin.Context) {
 	channels, err := queryChannels()
 	if err != nil {
 		fmt.Println(err.Error())
+		return
 	}
 	c.JSON(http.StatusOK, channels)
 }
@@ -26,6 +27,16 @@ func addChannel(c *gin.Context) {
 		fmt.Println(err.Error())
 	}
 	c.JSON(http.StatusOK, id)
+}
+
+func getArticles(c *gin.Context) {
+	channelID, err := strconv.ParseInt(c.Param("id"), 10, 64)
+	articles, err := queryArticles(channelID)
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
+	c.JSON(http.StatusOK, articles)
 }
 
 func addArticle(c *gin.Context) {

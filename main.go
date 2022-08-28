@@ -31,6 +31,7 @@ func main() {
 	router := gin.Default()
 	router.GET("/channel", getChannels)
 	router.POST("/channel", addChannel)
+	router.GET("/channel/:id", getArticles)
 	router.POST("/channel/:id", addArticle)
 
 	router.Run("localhost:8080")
