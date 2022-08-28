@@ -1,18 +1,16 @@
 DROP TABLE IF EXISTS channels;
 
 CREATE TABLE channels(
-    id INT AUTO_INCREMENT NOT NULL,
-    title VARCHAR(100) NOT NULL,
-    PRIMARY KEY(id)
+    id INTEGER PRIMARY KEY,
+    title VARCHAR(100) NOT NULL
 );
 
 DROP TABLE IF EXISTS articles;
 
 CREATE TABLE articles(
-    id INT AUTO_INCREMENT NOT NULL,
+    id INTEGER PRIMARY KEY,
     channel_id INT NOT NULL,
     url VARCHAR NOT NULL,
     wc INT NOT NULL,
-    PRIMARY KEY(id)
-    FOREIGN KEY(channel_id) REFERENCES channels
+    FOREIGN KEY(channel_id) REFERENCES channels (id)
 );

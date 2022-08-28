@@ -33,8 +33,9 @@ sqlite3 news.db < setup.sql
 
 - [x] Set up database
 - [x] Lauch server
-- [ ] Add endpoints for channel
-- [ ] Integrate UI for APIs
-- [ ] Add endpoints for articles
+- [x] Add endpoint for channel manipulation
+- [ ] Add endpoint for adding an article
+- [ ] Add endpoint for search articles of a channel
 - [ ] Filter articles by word count
+- [ ] Integrate UI for APIs
 - [ ] Wrap up and documentation
