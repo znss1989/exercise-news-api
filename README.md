@@ -36,4 +36,5 @@ sqlite3 news.db < setup.sql
 - [ ] Add endpoints for channel
 - [ ] Integrate UI for APIs
 - [ ] Add endpoints for articles
+- [ ] Filter articles by word count
 - [ ] Wrap up and documentation
