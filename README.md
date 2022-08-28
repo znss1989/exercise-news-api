@@ -21,9 +21,19 @@ Manage articles of a channel
 
 ## Usage
 
+### Prerequisites
+
+SQLite3 is assumed for the database. 
+
+### Launch of application
+
+```bash
+sqlite3 news.db < setup.sql
+```
+
 ## Progress
 
-- [ ] Set up database
+- [x] Set up database
 - [ ] Lauch server
 - [ ] Add endpoints for channel
 - [ ] Integrate UI for APIs
