@@ -104,7 +104,14 @@ func updateArticleWordCount(articleID int64) {
 	}
 	html := p.Sanitize(htmlRaw)
 	content := strip.StripTags(html)
-	wc := len(strings.Fields(content))
+	wc := int64(len(strings.Fields(content)))
 
-	fmt.Printf("Async update article word count for %v: %v", url, wc)
+	fmt.Printf("Async update for article for %v", url)
+	fmt.Printf(" --> word count: %v", wc)
+
+	// update word count
+	_, err = db.Exec("UPDATE articles SET wc = ? WHERE id=?", wc, articleID)
+	if err != nil {
+		return
+	}
 }
