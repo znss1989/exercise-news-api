@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"database/sql"
+	"fmt"
+)
 
 func queryChannels() ([]Channel, error) {
 	var channels []Channel
@@ -69,6 +72,32 @@ func insertArticle(channelID int64, atc Article) (int64, error) {
 	if err != nil {
 		return 0, fmt.Errorf("insertArticle: %v", err)
 	}
-	// TODO: invoke processing
 	return id, nil
+}
+
+func queryArticleUrl(articleID int64) (string, error) {
+	var url string
+
+	row := db.QueryRow("SELECT url FROM articles WHERE id = ?", articleID)
+	if err := row.Scan(&url); err != nil {
+		if err == sql.ErrNoRows {
+			return url, fmt.Errorf("urlByID %d: no such article", articleID)
+		}
+		return url, fmt.Errorf("urlById %d: %v", articleID, err)
+	}
+	return url, nil
+}
+
+func updateArticleWordCount(articleID int64) {
+	url, err := queryArticleUrl(articleID)
+	if err != nil {
+		return
+	}
+
+	fmt.Println("Async update article word count for %v ...", url)
+
+	// 1. get HTML document
+	// 2. sanitize with bluemonday
+	// 3. strip tags and count words
+
 }

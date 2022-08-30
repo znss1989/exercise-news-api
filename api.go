@@ -31,6 +31,10 @@ func addChannel(c *gin.Context) {
 
 func getArticles(c *gin.Context) {
 	channelID, err := strconv.ParseInt(c.Param("id"), 10, 64)
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
 	articles, err := queryArticles(channelID)
 	if err != nil {
 		fmt.Println(err.Error())
@@ -52,5 +56,9 @@ func addArticle(c *gin.Context) {
 	if err != nil {
 		fmt.Println(err.Error())
 	}
+
+	// async update article
+	go updateArticleWordCount(id)
+
 	c.JSON(http.StatusAccepted, id)
 }
