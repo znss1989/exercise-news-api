@@ -12,7 +12,7 @@ func getChannels(c *gin.Context) {
 	channels, err := queryChannels()
 	if err != nil {
 		fmt.Println(err.Error())
-		return
+		c.AbortWithStatus(500)
 	}
 	c.JSON(http.StatusOK, channels)
 }
@@ -20,11 +20,14 @@ func getChannels(c *gin.Context) {
 func addChannel(c *gin.Context) {
 	var chn Channel
 	if err := c.BindJSON(&chn); err != nil {
+		c.AbortWithStatus(400)
 		return
 	}
 	id, err := insertChannel(chn)
 	if err != nil {
 		fmt.Println(err.Error())
+		c.AbortWithStatus(500)
+		return
 	}
 	c.JSON(http.StatusOK, id)
 }
@@ -33,6 +36,7 @@ func getArticles(c *gin.Context) {
 	channelID, err := strconv.ParseInt(c.Param("id"), 10, 64)
 	if err != nil {
 		fmt.Println(err.Error())
+		c.AbortWithStatus(400)
 		return
 	}
 	var ftr Filter
@@ -56,6 +60,7 @@ func getArticles(c *gin.Context) {
 
 	if err != nil {
 		fmt.Println(err.Error())
+		c.AbortWithStatus(500)
 		return
 	}
 	c.JSON(http.StatusOK, articles)
@@ -64,15 +69,18 @@ func getArticles(c *gin.Context) {
 func addArticle(c *gin.Context) {
 	channelID, err := strconv.ParseInt(c.Param("id"), 10, 64)
 	if err != nil {
+		c.AbortWithStatus(400)
 		return
 	}
 	var atc Article
 	if err := c.BindJSON(&atc); err != nil {
+		c.AbortWithStatus(400)
 		return
 	}
 	id, err := insertArticle(channelID, atc)
 	if err != nil {
 		fmt.Println(err.Error())
+		c.AbortWithStatus(500)
 	}
 
 	// async update article
