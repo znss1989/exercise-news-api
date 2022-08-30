@@ -1,4 +1,4 @@
-basePath: /
+basePath: /api/v1
 definitions:
   main.Article:
     properties:
@@ -11,10 +11,20 @@ definitions:
       wordCount:
         type: integer
     type: object
+  main.ArticleRequest:
+    properties:
+      url:
+        type: string
+    type: object
   main.Channel:
     properties:
       id:
         type: integer
+      title:
+        type: string
+    type: object
+  main.ChannelRequest:
+    properties:
       title:
         type: string
     type: object
@@ -64,12 +74,12 @@ paths:
     post:
       description: Add a new channel in records for news articles
       parameters:
-      - description: Channel JSON
+      - description: Title in JSON
         in: body
-        name: channel
+        name: title
         required: true
         schema:
-          $ref: '#/definitions/main.Channel'
+          $ref: '#/definitions/main.ChannelRequest'
       produces:
       - application/json
       responses:
@@ -107,6 +117,32 @@ paths:
               $ref: '#/definitions/main.Article'
             type: array
       summary: Get articles of a channel
+      tags:
+      - articles
+    post:
+      consumes:
+      - application/json
+      description: Add a new article of a channel
+      parameters:
+      - description: Channel ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Url in JSON
+        in: body
+        name: url
+        required: true
+        schema:
+          $ref: '#/definitions/main.ArticleRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+      summary: Add a new article
       tags:
       - articles
 swagger: "2.0"

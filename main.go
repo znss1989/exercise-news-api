@@ -27,7 +27,7 @@ var p *bluemonday.Policy
 // @license.url https://opensource.org/licenses/MIT
 
 // @host localhost:8080
-// @BasePath /
+// @BasePath /api/v1
 // @query.collection.format multi
 func main() {
 	// database set up
@@ -47,11 +47,15 @@ func main() {
 
 	// gin server
 	router := gin.Default()
-	router.GET("/", healthCheck)
-	router.GET("/channel", getChannels)
-	router.POST("/channel", addChannel)
-	router.GET("/channel/:id", getArticles)
-	router.POST("/channel/:id", addArticle)
+
+	v1 := router.Group("/api/v1")
+	{
+		v1.GET("/", healthCheck)
+		v1.GET("/channel", getChannels)
+		v1.POST("/channel", addChannel)
+		v1.GET("/channel/:id", getArticles)
+		v1.POST("/channel/:id", addArticle)
+	}
 
 	// policy creation for HTML sanitizer
 	p = bluemonday.StrictPolicy()

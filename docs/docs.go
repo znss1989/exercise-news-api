@@ -80,12 +80,12 @@ const docTemplate = `{
                 "summary": "Add a new channel",
                 "parameters": [
                     {
-                        "description": "Channel JSON",
-                        "name": "channel",
+                        "description": "Title in JSON",
+                        "name": "title",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/main.Channel"
+                            "$ref": "#/definitions/main.ChannelRequest"
                         }
                     }
                 ],
@@ -141,6 +141,45 @@ const docTemplate = `{
                         }
                     }
                 }
+            },
+            "post": {
+                "description": "Add a new article of a channel",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "articles"
+                ],
+                "summary": "Add a new article",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Channel ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Url in JSON",
+                        "name": "url",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.ArticleRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                }
             }
         }
     },
@@ -162,12 +201,28 @@ const docTemplate = `{
                 }
             }
         },
+        "main.ArticleRequest": {
+            "type": "object",
+            "properties": {
+                "url": {
+                    "type": "string"
+                }
+            }
+        },
         "main.Channel": {
             "type": "object",
             "properties": {
                 "id": {
                     "type": "integer"
                 },
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
+        "main.ChannelRequest": {
+            "type": "object",
+            "properties": {
                 "title": {
                     "type": "string"
                 }
@@ -180,7 +235,7 @@ const docTemplate = `{
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
 	Host:             "localhost:8080",
-	BasePath:         "/",
+	BasePath:         "/api/v1",
 	Schemes:          []string{},
 	Title:            "MM News APIs",
 	Description:      "This is web server for channel news",

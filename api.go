@@ -44,7 +44,7 @@ func getChannels(c *gin.Context) {
 // @Summary Add a new channel
 // @Description Add a new channel in records for news articles
 // @Tags channels
-// @Param channel body Channel true  "Channel JSON"
+// @Param title body ChannelRequest true  "Title in JSON"
 // @Produce json
 // @Success 200 {integer} integer
 // @Router /channel [post]
@@ -115,6 +115,16 @@ func getArticles(c *gin.Context) {
 	c.JSON(http.StatusOK, articles)
 }
 
+// addArticle godoc
+// @Summary Add a new article
+// @Description Add a new article of a channel
+// @Tags articles
+// @Accept json
+// @Produce json
+// @Param id path int true "Channel ID"
+// @Param url body ArticleRequest true  "Url in JSON"
+// @Success 200 {integer} integer
+// @Router /channel/{id} [post]
 func addArticle(c *gin.Context) {
 	channelID, err := strconv.ParseInt(c.Param("id"), 10, 64)
 	if err != nil {
