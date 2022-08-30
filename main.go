@@ -20,9 +20,8 @@ var p *bluemonday.Policy
 // @version 1.0
 // @description This is web server for channel news
 
-// @contact.name API Support
-// @contact.url http://www.swagger.io/support
-// @contact.email support@swagger.io
+// @contact.name Lei Wu
+// @contact.email znss1989@gmail.com
 
 // @license.name MIT
 // @license.url https://opensource.org/licenses/MIT

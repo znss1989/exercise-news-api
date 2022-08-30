@@ -4,9 +4,8 @@
         "description": "This is web server for channel news",
         "title": "MM News APIs",
         "contact": {
-            "name": "API Support",
-            "url": "http://www.swagger.io/support",
-            "email": "support@swagger.io"
+            "name": "Lei Wu",
+            "email": "znss1989@gmail.com"
         },
         "license": {
             "name": "MIT",

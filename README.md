@@ -29,6 +29,15 @@ SQLite3 is assumed for the database.
 sqlite3 news.db < setup.sql
 ```
 
+### Swagger UI
+
+Update docs with changes
+
+```
+export PATH=$(go env GOPATH)/bin:$PATH
+swag init
+```
+
 ## Progress
 
 - [x] Set up database
