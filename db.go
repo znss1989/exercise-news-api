@@ -3,6 +3,9 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	"strings"
+
+	strip "github.com/grokify/html-strip-tags-go"
 )
 
 func queryChannels() ([]Channel, error) {
@@ -94,9 +97,14 @@ func updateArticleWordCount(articleID int64) {
 		return
 	}
 
-	fmt.Println("Async update article word count for %v ...", url)
+	// parse and process hmtl
 	htmlRaw, err := getRawHTML(url)
-	html = sanitizeHtml(htmlRaw)
-	// 3. strip tags and count words
+	if err != nil {
+		return
+	}
+	html := p.Sanitize(htmlRaw)
+	content := strip.StripTags(html)
+	wc := len(strings.Fields(content))
 
+	fmt.Printf("Async update article word count for %v: %v", url, wc)
 }

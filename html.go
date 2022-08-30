@@ -17,7 +17,3 @@ func getRawHTML(url string) (string, error) {
 	}
 	return string(content), nil
 }
-
-func sanitizeHtml(htmlRaw string) string {
-	return p.Sanitize(htmlRaw)
-}

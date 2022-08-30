@@ -11,7 +11,7 @@ import (
 )
 
 var db *sql.DB
-var p bluemonday.Policy
+var p *bluemonday.Policy
 
 func main() {
 	// database set up
@@ -37,7 +37,7 @@ func main() {
 	router.POST("/channel/:id", addArticle)
 
 	// policy creation for HTML sanitizer
-	p = bluemonday.UGCPolicy()
+	p = bluemonday.StrictPolicy()
 
 	router.Run("localhost:8080")
 }
