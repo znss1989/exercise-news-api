@@ -35,7 +35,25 @@ func getArticles(c *gin.Context) {
 		fmt.Println(err.Error())
 		return
 	}
-	articles, err := queryArticles(channelID)
+	var ftr Filter
+	if err := c.BindJSON(&ftr); err != nil {
+		fmt.Println((err.Error()))
+		ftr = Filter{
+			Lo: 0,
+			Hi: -1,
+		}
+	}
+	fmt.Printf("Filter: %v\n", ftr)
+	var articles []Article
+	if ftr.Lo > ftr.Hi {
+		articles, err = queryArticles(channelID)
+		fmt.Printf("get articles in channel %v\n", channelID)
+	} else {
+		articles, err = queryArticlesFiltering(channelID, ftr)
+		fmt.Printf("get articles in channel with filtering %v, %v\n", channelID, ftr)
+
+	}
+
 	if err != nil {
 		fmt.Println(err.Error())
 		return

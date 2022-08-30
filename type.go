@@ -11,3 +11,8 @@ type Article struct {
 	Url       string `json:"url"`
 	WordCount int64  `json:"wordCount"`
 }
+
+type Filter struct {
+	Lo int64 `json:"lo"`
+	Hi int64 `json:"hi"`
+}
