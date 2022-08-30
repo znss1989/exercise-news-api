@@ -1,4 +1,23 @@
 basePath: /
+definitions:
+  main.Article:
+    properties:
+      channelID:
+        type: integer
+      id:
+        type: integer
+      url:
+        type: string
+      wordCount:
+        type: integer
+    type: object
+  main.Channel:
+    properties:
+      id:
+        type: integer
+      title:
+        type: string
+    type: object
 host: localhost:8080
 info:
   contact:
@@ -27,4 +46,67 @@ paths:
       summary: Show the status of server.
       tags:
       - root
+  /channel:
+    get:
+      description: Get a list of all the channels for news articles.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/main.Channel'
+            type: array
+      summary: Get all channels
+      tags:
+      - channels
+    post:
+      description: Add a new channel in records for news articles
+      parameters:
+      - description: Channel JSON
+        in: body
+        name: channel
+        required: true
+        schema:
+          $ref: '#/definitions/main.Channel'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+      summary: Add a new channel
+      tags:
+      - channels
+  /channel/{id}:
+    get:
+      description: Get a list of all articles under a channel.
+      parameters:
+      - description: Channel ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: lower bound of word count
+        in: query
+        name: lo
+        type: integer
+      - description: lower bound of word count
+        in: query
+        name: hi
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/main.Article'
+            type: array
+      summary: Get articles of a channel
+      tags:
+      - articles
 swagger: "2.0"

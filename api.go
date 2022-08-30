@@ -24,6 +24,13 @@ func healthCheck(c *gin.Context) {
 	c.JSON(http.StatusOK, res)
 }
 
+// getChannels godoc
+// @Summary Get all channels
+// @Description Get a list of all the channels for news articles.
+// @Tags channels
+// @Produce json
+// @Success 200 {array} Channel
+// @Router /channel [get]
 func getChannels(c *gin.Context) {
 	channels, err := queryChannels()
 	if err != nil {
@@ -33,6 +40,14 @@ func getChannels(c *gin.Context) {
 	c.JSON(http.StatusOK, channels)
 }
 
+// addChannel godoc
+// @Summary Add a new channel
+// @Description Add a new channel in records for news articles
+// @Tags channels
+// @Param channel body Channel true  "Channel JSON"
+// @Produce json
+// @Success 200 {integer} integer
+// @Router /channel [post]
 func addChannel(c *gin.Context) {
 	var chn Channel
 	if err := c.BindJSON(&chn); err != nil {
@@ -48,6 +63,16 @@ func addChannel(c *gin.Context) {
 	c.JSON(http.StatusOK, id)
 }
 
+// getArticles godoc
+// @Summary Get articles of a channel
+// @Description Get a list of all articles under a channel.
+// @Tags articles
+// @Produce json
+// @Param id path int true "Channel ID"
+// @Param lo query int false "lower bound of word count"
+// @Param hi query int false "lower bound of word count"
+// @Success 200 {array} Article
+// @Router /channel/{id} [get]
 func getArticles(c *gin.Context) {
 	channelID, err := strconv.ParseInt(c.Param("id"), 10, 64)
 	if err != nil {
@@ -55,14 +80,22 @@ func getArticles(c *gin.Context) {
 		c.AbortWithStatus(400)
 		return
 	}
+	lo, err1 := strconv.ParseInt(c.Query("lo"), 10, 64)
+	hi, err2 := strconv.ParseInt(c.Query("hi"), 10, 64)
+
 	var ftr Filter
-	if err := c.BindJSON(&ftr); err != nil {
-		fmt.Println((err.Error()))
+	if err1 != nil || err2 != nil {
 		ftr = Filter{
 			Lo: 0,
 			Hi: -1,
 		}
+	} else {
+		ftr = Filter{
+			Lo: lo,
+			Hi: hi,
+		}
 	}
+
 	fmt.Printf("Filter: %v\n", ftr)
 	var articles []Article
 	if ftr.Lo > ftr.Hi {
