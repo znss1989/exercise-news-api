@@ -8,6 +8,22 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// healthCheck godoc
+// @Summary Show the status of server.
+// @Description get the status of server.
+// @Tags root
+// @Accept */*
+// @Produce json
+// @Success 200 {object} map[string]interface{}
+// @Router / [get]
+func healthCheck(c *gin.Context) {
+	res := map[string]interface{}{
+		"msg": "Server is up and running",
+	}
+
+	c.JSON(http.StatusOK, res)
+}
+
 func getChannels(c *gin.Context) {
 	channels, err := queryChannels()
 	if err != nil {
