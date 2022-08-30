@@ -95,9 +95,8 @@ func updateArticleWordCount(articleID int64) {
 	}
 
 	fmt.Println("Async update article word count for %v ...", url)
-
-	// 1. get HTML document
-	// 2. sanitize with bluemonday
+	htmlRaw, err := getRawHTML(url)
+	html = sanitizeHtml(htmlRaw)
 	// 3. strip tags and count words
 
 }

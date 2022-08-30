@@ -7,9 +7,11 @@ import (
 
 	"github.com/gin-gonic/gin"
 	_ "github.com/mattn/go-sqlite3"
+	"github.com/microcosm-cc/bluemonday"
 )
 
 var db *sql.DB
+var p bluemonday.Policy
 
 func main() {
 	// database set up
@@ -33,6 +35,9 @@ func main() {
 	router.POST("/channel", addChannel)
 	router.GET("/channel/:id", getArticles)
 	router.POST("/channel/:id", addArticle)
+
+	// policy creation for HTML sanitizer
+	p = bluemonday.UGCPolicy()
 
 	router.Run("localhost:8080")
 }
