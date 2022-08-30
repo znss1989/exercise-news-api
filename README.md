@@ -14,13 +14,13 @@ A SQLite database is set up for the data persisting, for both channels and artic
 
 ## RESTful endpoints
 
-`/api/channel`
+`/api/v1/channel`
 - `GET`: Get a list of all channels, return as JSON
 - `POST`: Add a new channel as requested in JSON
 
 Manage articles of a channel
 
-`/api/channel/:id`
+`/api/v1/channel/:id`
 - `GET`: Get a list of articles in a channel by its id return as JSON, can be optionally filterd by word count as requested in JSON
 - `POST`: Add a news article into a channel, url in JSON as requested, process in background 
 
@@ -43,12 +43,14 @@ sqlite3 news.db < setup.sql
 
 ### Launch server
 
-Add dependencies and 
+Add dependencies and launch the application
 
 ```bash
 go get .
 go run .
 ```
+
+When the server is up, requests can be made to the endpoints described above.
 
 ### Swagger UI
 
