@@ -101,7 +101,7 @@ const docTemplate = `{
         },
         "/channel/{id}": {
             "get": {
-                "description": "Get a list of all articles under a channel.",
+                "description": "Get a list of all articles under a channel. Without query parameters, this will return all the articles of the channel.\nIf the lower (lo) and upper bound (hi) bound of word count provided, the articles are filterd by word count accordingly before returned.",
                 "produces": [
                     "application/json"
                 ],
@@ -119,13 +119,13 @@ const docTemplate = `{
                     },
                     {
                         "type": "integer",
-                        "description": "lower bound of word count",
+                        "description": "[Optional] lower bound of word count",
                         "name": "lo",
                         "in": "query"
                     },
                     {
                         "type": "integer",
-                        "description": "lower bound of word count",
+                        "description": "[Optional] upper bound of word count",
                         "name": "hi",
                         "in": "query"
                     }

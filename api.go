@@ -65,12 +65,13 @@ func addChannel(c *gin.Context) {
 
 // getArticles godoc
 // @Summary Get articles of a channel
-// @Description Get a list of all articles under a channel.
+// @Description Get a list of all articles under a channel. Without query parameters, this will return all the articles of the channel.
+// @Description If the lower (lo) and upper bound (hi) bound of word count provided, the articles are filterd by word count accordingly before returned.
 // @Tags articles
 // @Produce json
 // @Param id path int true "Channel ID"
-// @Param lo query int false "lower bound of word count"
-// @Param hi query int false "lower bound of word count"
+// @Param lo query int false "[Optional] lower bound of word count"
+// @Param hi query int false "[Optional] upper bound of word count"
 // @Success 200 {array} Article
 // @Router /channel/{id} [get]
 func getArticles(c *gin.Context) {
