@@ -46,7 +46,7 @@ func getChannels(c *gin.Context) {
 // @Tags channels
 // @Param title body ChannelRequest true  "Title in JSON"
 // @Produce json
-// @Success 200 {integer} integer
+// @Success 201 {integer} integer
 // @Router /channel [post]
 func addChannel(c *gin.Context) {
 	var chn Channel
@@ -60,7 +60,7 @@ func addChannel(c *gin.Context) {
 		c.AbortWithStatus(500)
 		return
 	}
-	c.JSON(http.StatusOK, id)
+	c.JSON(http.StatusCreated, id)
 }
 
 // getArticles godoc
@@ -124,7 +124,7 @@ func getArticles(c *gin.Context) {
 // @Produce json
 // @Param id path int true "Channel ID"
 // @Param url body ArticleRequest true  "Url in JSON"
-// @Success 200 {integer} integer
+// @Success 201 {integer} integer
 // @Router /channel/{id} [post]
 func addArticle(c *gin.Context) {
 	channelID, err := strconv.ParseInt(c.Param("id"), 10, 64)
@@ -146,5 +146,5 @@ func addArticle(c *gin.Context) {
 	// async update article
 	go updateArticleWordCount(id)
 
-	c.JSON(http.StatusAccepted, id)
+	c.JSON(http.StatusCreated, id)
 }

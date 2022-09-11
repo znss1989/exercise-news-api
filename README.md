@@ -76,5 +76,5 @@ swag init
 - [x] Integrate UI for APIs
 - [x] Wrap up and documentation
 - [x] Add swagger docs for search by words filter
-- [ ] Unit test for request validation
+- [x] Unit test for request validation
 - [ ] Docker virtualize and deployment
