@@ -51,7 +51,7 @@ func getChannels(c *gin.Context) {
 func addChannel(c *gin.Context) {
 	var chn Channel
 	if err := c.BindJSON(&chn); err != nil {
-		c.AbortWithStatus(400)
+		c.AbortWithError(http.StatusBadRequest, err)
 		return
 	}
 	id, err := insertChannel(chn)
@@ -134,7 +134,7 @@ func addArticle(c *gin.Context) {
 	}
 	var atc Article
 	if err := c.BindJSON(&atc); err != nil {
-		c.AbortWithStatus(400)
+		c.AbortWithError(http.StatusBadRequest, err)
 		return
 	}
 	id, err := insertArticle(channelID, atc)

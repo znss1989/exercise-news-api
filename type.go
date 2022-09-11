@@ -2,7 +2,7 @@ package main
 
 type Channel struct {
 	ID    int64  `json:"id"`
-	Title string `json:"title"`
+	Title string `json:"title" binding:"required"`
 }
 
 type ChannelRequest struct {
@@ -12,7 +12,7 @@ type ChannelRequest struct {
 type Article struct {
 	ID        int64  `json:"id"`
 	ChannelID int64  `json:"channelID"`
-	Url       string `json:"url"`
+	Url       string `json:"url" binding:"required"`
 	WordCount int64  `json:"wordCount"`
 }
 
