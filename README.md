@@ -52,6 +52,18 @@ go run .
 
 When the server is up, requests can be made to the endpoints described above.
 
+### Docker
+
+Build the image
+
+```bash
+docker build --tag mm-news .
+```
+
+```bash
+docker run -dp 8080:8080 -v "$PWD:/app" mm-news
+```
+
 ### Swagger UI
 
 Access the Swagger UI at `http://localhost:8080/docs/index.html#/` when the app is launched.
